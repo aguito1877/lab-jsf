@@ -1,4 +1,4 @@
 lab-jsf
 ====
 
-Laboratório para demonstrações e testes com Java Server Faces.
+LaboratÃ³rio para demonstraÃ§Ãµes e testes com Java Server Faces.
