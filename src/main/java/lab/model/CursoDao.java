@@ -30,7 +30,7 @@ public class CursoDao {
 		List<Curso> cursos = new ArrayList<Curso>();
 		try {
 			// URL de conexão JDBC com o banco de dados.
-			String url = "jdbc:derby://localhost/db";
+			String url = "jdbc:derby://localhost/db;create=true";
 			// Obtém uma conexão com o banco de dados.
 			Connection conn = DriverManager
 					.getConnection(url, "app", "123");
