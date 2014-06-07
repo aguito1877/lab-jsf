@@ -43,11 +43,11 @@ public class CadastroAluno {
 	
 	public String salvar() {
 		alunoService.salvar(aluno);
-		return "listagem?faces-redirect=true";
+		return "listagem-aluno?faces-redirect=true";
 	}
 	
 	public String excluir(Aluno aluno) {
 		alunoService.excluir(aluno);
-		return "listagem?faces-redirect=true";
+		return "listagem-aluno?faces-redirect=true";
 	}
 }
