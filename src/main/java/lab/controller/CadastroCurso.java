@@ -48,9 +48,8 @@ public class CadastroCurso {
 		return "listagem-curso?faces-redirect=true";
 	}
 	
-	public String excluir(Aluno aluno) {
-		//TODO Implementar.
-		//cursoService.excluir(aluno);
+	public String excluir(Curso curso) {
+		cursoService.excluir(curso);
 		return "listagem-curso?faces-redirect=true";
 	}
 }

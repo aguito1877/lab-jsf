@@ -29,11 +29,7 @@ public class CursoDao {
 		//Cria uma lista de cursos.
 		List<Curso> cursos = new ArrayList<Curso>();
 		try {
-			// URL de conexão JDBC com o banco de dados.
-			String url = "jdbc:derby://localhost/db;create=true";
-			// Obtém uma conexão com o banco de dados.
-			Connection conn = DriverManager
-					.getConnection(url, "app", "123");
+			Connection conn = JdbcUtil.createConnection();
 			//Obtém uma sentença SQL.
 			Statement stmt = conn.createStatement();
 			//Executa a instrução SQL.
@@ -61,12 +57,15 @@ public class CursoDao {
 	}
 	
 	public void excluirCurso(Curso curso) {
-		//Esse código deve realizar uma exclusão no banco de dados. 
-		for (Curso cursoTemp : cursoDataSource) {
-			if (cursoTemp.getCodigo().equals(curso.getCodigo())) {
-				cursoDataSource.remove(cursoTemp);
-				return;
-			}
+		try {
+			Connection conn = JdbcUtil.createConnection();
+			//Obtém uma sentença SQL.
+			Statement stmt = conn.createStatement();
+			//Executa a instrução SQL.
+			stmt.executeUpdate("delete from curso where curso.codigo = "
+					+ curso.getCodigo());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
