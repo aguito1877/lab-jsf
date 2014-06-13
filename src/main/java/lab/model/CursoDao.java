@@ -1,7 +1,6 @@
 package lab.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,8 +21,6 @@ public class CursoDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	private List<Curso> cursoDataSource = new ArrayList<Curso>();
 	
 	public List<Curso> obterCursos() {
 		//Cria uma lista de cursos.
@@ -52,10 +49,22 @@ public class CursoDao {
 	}
 	
 	public void incluirCurso(Curso curso) {
-		//Esse código deve realizar uma inclusão no banco de dados. 
-		cursoDataSource.add(curso);
+		try {
+			Connection conn = JdbcUtil.createConnection();
+			//Obtém uma sentença SQL.
+			Statement stmt = conn.createStatement();
+			//Executa a instrução SQL.
+			stmt.executeUpdate("insert into curso (codigo, nome) "
+					+ "values "
+					+ "("
+					+ "" + curso.getCodigo() + ", "
+					+ "'" + curso.getNome() + "'"
+					+ ")");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
-	
+
 	public void excluirCurso(Curso curso) {
 		try {
 			Connection conn = JdbcUtil.createConnection();

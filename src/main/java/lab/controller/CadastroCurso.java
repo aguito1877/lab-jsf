@@ -6,7 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-import lab.model.Aluno;
 import lab.model.Curso;
 import lab.model.CursoService;
 
@@ -44,7 +43,7 @@ public class CadastroCurso {
 	
 	public String salvar() {
 		//TODO Implementar.
-		//cursoService.salvar(curso);
+		cursoService.salvar(curso);
 		return "listagem-curso?faces-redirect=true";
 	}
 	
