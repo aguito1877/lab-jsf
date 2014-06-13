@@ -1,9 +1,13 @@
 package lab.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
@@ -58,6 +62,8 @@ public class CursoDao {
 		Statement stmt = null;
 		try {
 			conn = JdbcUtil.createConnection();
+			//Inicia uma transação.
+			conn.setAutoCommit(false);
 			//Obtém uma sentença SQL.
 			stmt = conn.createStatement();
 			//Executa a instrução SQL.
@@ -67,11 +73,44 @@ public class CursoDao {
 					+ "" + curso.getCodigo() + ", "
 					+ "'" + curso.getNome() + "'"
 					+ ")");
+			
+			//...
+			//Isso é um crash!
+			if (curso.getCodigo().startsWith("1")) throw new RuntimeException("Yeh Yeh!");
+			//...
+			
+			PreparedStatement pstmt = conn.prepareStatement(
+					"insert into log_curso "
+					+ "(data_hora, operacao, codigo) "
+					+ "values "
+					+ "(?, ?, ?)");
+			pstmt.setTimestamp(1, agora());
+			pstmt.setString(2, "incluir");
+			pstmt.setString(3, curso.getCodigo());
+			pstmt.executeUpdate();
+
+			//Efetivação da transação.
+			conn.commit();
+			
 		} catch (Exception e) {
+
+			try {
+				if (conn != null && !conn.isClosed()) {
+					//Cancela transação.
+					conn.rollback();
+				}
+			} catch (Exception e1) {
+				//Não faz nada.
+			}
+
 			throw new RuntimeException(e);
 		} finally {
 			JdbcUtil.close(conn, stmt);
 		}
+	}
+
+	private Timestamp agora() {
+		return new Timestamp(new Date().getTime());
 	}
 
 	public void excluirCurso(Curso curso) {
