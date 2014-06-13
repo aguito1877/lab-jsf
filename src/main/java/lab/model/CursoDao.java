@@ -25,12 +25,15 @@ public class CursoDao {
 	public List<Curso> obterCursos() {
 		//Cria uma lista de cursos.
 		List<Curso> cursos = new ArrayList<Curso>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			Connection conn = JdbcUtil.createConnection();
+			conn = JdbcUtil.createConnection();
 			//Obtém uma sentença SQL.
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			//Executa a instrução SQL.
-			ResultSet rs = stmt
+			rs = stmt
 					.executeQuery("select codigo, nome from curso");
 			//Percorre todos os registros.
 			while (rs.next()) {
@@ -44,15 +47,19 @@ public class CursoDao {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		} finally {
+			JdbcUtil.close(conn, stmt, rs);
 		}
 		return cursos;
 	}
-	
+
 	public void incluirCurso(Curso curso) {
+		Connection conn = null;
+		Statement stmt = null;
 		try {
-			Connection conn = JdbcUtil.createConnection();
+			conn = JdbcUtil.createConnection();
 			//Obtém uma sentença SQL.
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			//Executa a instrução SQL.
 			stmt.executeUpdate("insert into curso (codigo, nome) "
 					+ "values "
@@ -62,19 +69,25 @@ public class CursoDao {
 					+ ")");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		} finally {
+			JdbcUtil.close(conn, stmt);
 		}
 	}
 
 	public void excluirCurso(Curso curso) {
+		Connection conn = null;
+		Statement stmt = null;
 		try {
-			Connection conn = JdbcUtil.createConnection();
+			conn = JdbcUtil.createConnection();
 			//Obtém uma sentença SQL.
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			//Executa a instrução SQL.
 			stmt.executeUpdate("delete from curso where curso.codigo = "
 					+ curso.getCodigo());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		} finally {
+			JdbcUtil.close(conn, stmt);
 		}
 	}
 }
