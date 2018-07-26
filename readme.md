@@ -1,12 +1,12 @@
 # Lab JSF
 
-Experimentos com o Java Server Faces.
+Experimentos com Java Server Faces.
 
 ## Screenshots
 
 ### Tela principal da aplicação.
 
-![](src/site/resources/images/screenshot-01.png)
+![Tela principal da aplicação.](src/site/resources/images/screenshot-01.png)
 
 ## Pendências
 
