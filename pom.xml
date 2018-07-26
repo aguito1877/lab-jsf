@@ -68,5 +68,11 @@
 			<artifactId>derbyclient</artifactId>
 			<version>10.10.1.1</version>
 		</dependency>
+		<!-- DBCP -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
   </dependencies>
 </project>
