@@ -1,6 +1,6 @@
-# lab-jsf
+# Lab JSF
 
-Laboratório para demonstrações e testes com Java Server Faces.
+Experimentos com o Java Server Faces.
 
 ## Screenshots
 
